@@ -4,7 +4,14 @@ body {
     padding: 0;
     background-color: #f4f4f4;
 }
-div > in
+.invoice-recipient {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+}
+
+
 .invoice-container {
     width: 60%;
     margin: 50px auto;
@@ -25,6 +32,7 @@ div > in
     font-size: large;
 }
 .invoice-header-left h1 {
+    font-size: 90;
     margin: 20;
 }
 .invoice-header .logo {
@@ -35,14 +43,17 @@ div > in
     margin-bottom: 20px;
 
 }
+
 .invoice-details table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse:collapse;
 }
 .invoice-details table th, .invoice-details table td {
+    text-align: center;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 5px solid rgb(255, 255, 255);
     text-align: left;
+    background-color: rgb(204, 197, 198);
 }
 .invoice-footer {
     text-align: center;
