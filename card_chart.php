@@ -59,7 +59,7 @@ class PDF extends FPDF
             $x2*$this->k, ($h-$y2)*$this->k, $x3*$this->k, ($h-$y3)*$this->k));
     }
 
-    function Card($x, $y, $iconPath, $name, $position, $id, $backgroundColor = array(255, 255, 255))
+    function Card($x, $y, $iconPath, $name, $position, $id, $company, $backgroundColor = array(255, 255, 255))
     {
         // Card border and background color with rounded corners
         $this->SetDrawColor(0, 0, 0);
@@ -67,31 +67,35 @@ class PDF extends FPDF
         $this->SetFillColor($backgroundColor[0], $backgroundColor[1], $backgroundColor[2]);
         $this->RoundedRect($x, $y, 90, 60, 5, 'DF');
 
-        // Icon (Image)
-        list($imageWidth, $imageHeight) = getimagesize($iconPath);
-        $aspectRatio = $imageWidth / $imageHeight;
-        $newWidth = 20;
-        $newHeight = $newWidth / $aspectRatio;
-        if ($newHeight > 20) {
-            $newHeight = 20;
-            $newWidth = $newHeight * $aspectRatio;
-        }
-        $this->Image($iconPath, $x + 5, $y + 20, $newWidth, $newHeight);  // Adjust the position and size as needed
+        // Icon (Image) with border and adjusted size
+        $borderWidth = 1;
+        $this->Image($iconPath, $x + 10 + $borderWidth, $y + 15 + $borderWidth, 25 - 2 * $borderWidth, 25 - 2 * $borderWidth);
+        $this->Rect($x + 10, $y + 15, 25, 25, 'D');
+
+        // ID Card text at the top (centered, bold, larger font)
+        $this->SetFont('Arial', 'B', 10);
+        $this->SetXY($x, $y); // Adjusted position
+        $this->Cell(90, 10, "ID Card", 0, 1, 'C');
 
         // Name
         $this->SetFont('Arial', 'B', 12);
-        $this->SetXY($x + 30, $y + 20);
+        $this->SetXY($x + 40, $y + 20);
         $this->Cell(55, 10, $name, 0, 1, 'L');
 
         // Position
-        $this->SetFont('Arial', '', 12);
-        $this->SetXY($x + 30, $y + 30);
+        $this->SetFont('Arial', '', 10);
+        $this->SetXY($x + 40, $y + 30);
         $this->Cell(55, 10, $position, 0, 1, 'L');
 
         // ID
-        $this->SetFont('Arial', '', 12);
-        $this->SetXY($x + 30, $y + 40);
+        $this->SetFont('Arial', '', 10);
+        $this->SetXY($x + 40, $y + 40);
         $this->Cell(55, 10, "ID: " . $id, 0, 1, 'L');
+
+        // Company Name
+        $this->SetFont('Arial', 'I', 10);
+        $this->SetXY($x + 40, $y + 50);
+        $this->Cell(55, 10, $company, 0, 1, 'L');
     }
 }
 
@@ -109,10 +113,10 @@ $pdf->Ln(10);  // Add a line break for spacing
 
 // Data untuk kartu-kartu
 $cards = array(
-    array('name' => 'Haechan', 'position' => 'Manager', 'id' => '12345', 'iconPath' => '../assets/img/hc.png', 'backgroundColor' => array(150, 200, 255)),
-    array('name' => 'Mark Lee', 'position' => 'Developer', 'id' => '67890', 'iconPath' => '../assets/img/mark.png', 'backgroundColor' => array(255, 200, 150)),
-    array('name' => 'Louis', 'position' => 'Designer', 'id' => '24680', 'iconPath' => '../assets/img/louis.png', 'backgroundColor' => array(200, 255, 150)),
-    array('name' => 'Jaehyun', 'position' => 'Analyst', 'id' => '13579', 'iconPath' => '../assets/img/jae.png', 'backgroundColor' => array(200, 150, 255)),
+    array('name' => 'Haechan', 'position' => 'Manager', 'id' => '12345', 'company' => 'ABC Corp', 'iconPath' => '../assets/img/hc.png', 'backgroundColor' => array(150, 200, 255)),
+    array('name' => 'Mark Lee', 'position' => 'Developer', 'id' => '67890', 'company' => 'XYZ Inc', 'iconPath' => '../assets/img/mark.png', 'backgroundColor' => array(255, 200, 150)),
+    array('name' => 'Louis', 'position' => 'Designer', 'id' => '24680', 'company' => 'DesignHub', 'iconPath' => '../assets/img/louis.png', 'backgroundColor' => array(200, 255, 150)),
+    array('name' => 'Jaehyun', 'position' => 'Analyst', 'id' => '13579', 'company' => 'AnalyticsPro', 'iconPath' => '../assets/img/jae.png', 'backgroundColor' => array(200, 150, 255)),
 );
 
 // Koordinat awal untuk kartu-kartu
@@ -124,7 +128,7 @@ $marginX = 10;
 $marginY = 10;
 
 foreach ($cards as $card) {
-    $pdf->Card($cardX, $cardY, $card['iconPath'], $card['name'], $card['position'], $card['id'], $card['backgroundColor']);
+    $pdf->Card($cardX, $cardY, $card['iconPath'], $card['name'], $card['position'], $card['id'], $card['company'], $card['backgroundColor']);
     $cardX += $cardWidth + $marginX;
     if ($cardX + $cardWidth > $pdf->GetPageWidth() - $marginX) {
         $cardX = 10;
