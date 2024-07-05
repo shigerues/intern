@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <link rel="stylesheet" href="invoice.css">
+</head>
+<body>
+    <div class="invoice">
+        <header>
+            <img src="logo telkomm.png" alt="Tokopedia Logo" class="logo">
+            <h1>INVOICE</h1>
+        </header>
+        <section class="seller-buyer-info">
+            <div class="seller-info">
+                <p>PUBLISH IN THE NAME OF</p>
+                <p> <strong>PT. jaya sentosa mantap wow</strong></p>
+            </div>
+            <div class="buyer-info">
+                <p>BILL TO</p>
+                <p> <strong>Zaidan Halim</strong></p>
+                <p>Date : <strong>24 june 2024</strong></p>
+                <p>Ship To : <strong>Zaidan (6285719563213)</strong></p>
+                <p>JL. Jl. Teknik Kimia, Keputih, Kec. Sukolilo, Surabaya, Jawa Timur 60111 Indonesia</p>
+            </div>
+        </section>
+        <section class="product-info">
+            <table>
+                <thead>
+                    <tr>
+                        <th>PRODUCT INFO</th>
+                        <th>AMOUNT</th>
+                        <th>UNIT PRICE</th>
+                        <th>PRICE TOTAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Gold</td>
+                        <td>2 Kgs</td>
+                        <td>IDR 130.000.000</td>
+                        <td>IDR 260.000.000</td>
+                    </tr>
+                    <tr>
+                        <td>Diamond</td>
+                        <td>1 Kgs</td>
+                        <td>IDR 900.000.000 </td>
+                        <td>IDR 900.000.000</td>
+                    </tr>
+                    <tr>
+                        <td>Emerald</td>
+                        <td>1 Kgs</td>
+                        <td>IDR 80.000.000 </td>
+                        <td>IDR 160.000.000</td>
+                    </tr>
+                    <tr>
+                        <td>Crystal</td>
+                        <td>1 kgs</td>
+                        <td>IDR 999.000.000</td>
+                        <td>IDR 999.000.000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="totals">
+            <table>
+                <tr>
+                    <td>Price TotaL </td>
+                    <td>IDR 2.319.000.000</td>
+                </tr>
+                <tr>
+                    <td>Shipping Cost</td>
+                    <td>IDR 700.000</td>
+                </tr>
+                <tr>
+                    <td>Discount Shipping C</td>
+                    <td>-IDR 700.000</td>
+                </tr>
+                <tr>
+                    <td>Discount Total</td>
+                    <td>-IDR 700.000</td>
+                </tr>
+                <tr>
+                    <td>Shipping Insurance</td>
+                    <td>IDR 700.000</td>
+                </tr>
+                <tr>
+                    <td>Spending Total</td>
+                    <td>IDR 17.760</td>
+                </tr>
+                <tr>
+                    <td>Service</td>
+                    <td>IDR 1.000</td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td>IDR 2.319.718.760</td>
+                </tr>
+            </table>
+        </section>
+        <footer>
+            <p>Invoice ini sah dan diproses oleh komputer</p>
+            <p>Silakan hubungi Kami apabila kamu membutuhkan bantuan.</p>
+        </footer>
+        <div class="pdf-button">
+            <a href="generate_pdf.php">Download PDF</a>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
