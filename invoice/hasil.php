@@ -7,7 +7,7 @@ class PDF extends FPDF
     {
       //latar belakang gambar ini belum dibenerin lagi
       $this->SetXY(0, 0);
-      $this->Image('../assets/img/okokok.png', 0, 0, $this->w, $this->h);
+      $this->Image('../assets/img/.png', 0, 0, $this->w, $this->h);
     
 
     
