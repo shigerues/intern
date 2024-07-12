@@ -5,7 +5,11 @@ class PDF extends FPDF {
     // Header halaman
     function Header() {
         // Logo di pojok kanan atas
+<<<<<<< Updated upstream
         $this->Image('assets/img/binus.png', 170, 10, 35); // Sesuaikan posisi dan ukuran jika perlu
+=======
+        $this->Image('../assets/img/binus.png', 170, 10, 35); // Sesuaikan posisi dan ukuran jika perlu
+>>>>>>> Stashed changes
         // Set font untuk title
         $this->SetFont('Arial', 'B', 27);
         // Buat warna
@@ -17,8 +21,13 @@ class PDF extends FPDF {
         // Jeda baris
         $this->Ln(20);
 
+<<<<<<< Updated upstream
         // Tambahkan deretan lingkaran di pojok kiri atas (25 lingkaran)
         $this->AddCircles(10, 10, 2, 3, 5, 5, [252, 111, 173]); // Pojok kiri atas, 5x5 grid, 25 lingkaran
+=======
+        // Tambahkan deretan lingkaran di kanan atas
+        $this->AddCircles(170, 10, 10, 7, 5, [252, 111, 173]);
+>>>>>>> Stashed changes
     }
 
     // Footer halaman
@@ -84,6 +93,45 @@ class PDF extends FPDF {
     function _Arc($x1, $y1, $x2, $y2, $x3, $y3) {
         $h = $this->h;
         $this->_out(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c', $x1 * $this->k, ($h - $y1) * $this->k, $x2 * $this->k, ($h - $y2) * $this->k, $x3 * $this->k, ($h - $y3) * $this->k));
+    }
+
+    // Fungsi untuk menambahkan deretan lingkaran
+    function AddCircles($x, $y, $radius, $spacing, $rows, $color) {
+        // Set warna isi
+        $this->SetFillColor($color[0], $color[1], $color[2]);
+
+        for ($row = 0; $row < $rows; $row++) {
+            for ($col = 0; $col < $rows; $col++) {
+                $this->Ellipse($x + $col * ($radius * 2 + $spacing), $y + $row * ($radius * 2 + $spacing), $radius, $radius, 'F');
+            }
+        }
+    }
+
+    // Fungsi untuk menggambar lingkaran
+    function Ellipse($x, $y, $rx, $ry, $style = 'D') {
+        if ($style == 'F') {
+            $style = 'f';
+        } elseif ($style == 'DF' || $style == 'FD') {
+            $style = 'B';
+        }
+
+        $op = $style == 'f' ? 'f' : ($style == 'B' ? 'B' : 'S');
+
+        $lx = 4 / 3 * (M_SQRT2 - 1) * $rx;
+        $ly = 4 / 3 * (M_SQRT2 - 1) * $ry;
+
+        $this->_out(sprintf('%.2F %.2F m', $x + $rx, $y));
+        $this->_Arc($x + $rx, $y - $ly, $x + $lx, $y - $ry, $x, $y - $ry);
+        $this->_Arc($x - $lx, $y - $ry, $x - $rx, $y - $ly, $x - $rx, $y);
+        $this->_Arc($x - $rx, $y + $ly, $x - $lx, $y + $ry, $x, $y + $ry);
+        $this->_Arc($x + $lx, $y + $ry, $x + $rx, $y + $ly, $x + $rx, $y);
+        $this->_out($op);
+    }
+
+    // Fungsi untuk menambahkan arc
+    function _Arc($x1, $y1, $x2, $y2, $x3, $y3) {
+        $h = $this->h;
+        $this->_out(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c ', $x1 * $this->k, ($h - $y1) * $this->k, $x2 * $this->k, ($h - $y2) * $this->k, $x3 * $this->k, ($h - $y3) * $this->k));
     }
 
     // Fungsi untuk membuat latar belakang gradasi
